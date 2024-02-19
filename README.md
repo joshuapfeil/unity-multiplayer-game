@@ -1,2 +1,3 @@
 # unity-multiplayer-game-1
  
+The only two changes I made was to first add random bouncing balls that get spawned by the walls and roll across the scene. When a player hits one of these balls, they lose 1 point. The balls are destroyed on contact or after 10 bounces. The balls also have a random chance of getting a force that pushes them randomly. This adds chance, challenge, and skill to the game. I also added that when a player hits the opposing wall they rotate 180 degrees to avoid players just getting stuck on either side. Thsi constrains the players' movement still, but introduces strategy to bounce off the wall at the right time to catch up to your opponent.
