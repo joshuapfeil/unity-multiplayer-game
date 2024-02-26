@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,11 +12,20 @@ public class checkcollision : MonoBehaviour
     private float collisionCooldown = 0.5f; // Cooldown period in seconds
     private float lastCollisionTime;
     public int score = 0;
+    
+
+    public TMP_Text scoreText;
+    [SerializeField] private TMP_Text victoryText;
+    
     public void OnTriggerEnter(Collider collision)
     {
         checkcollision chkcoll = collision.gameObject.GetComponent<checkcollision>();
         if (chkcoll != null && collision.gameObject != gameObject && collision.isTrigger == false)
-            Debug.Log(chkcoll.gameObject.name + " Points: " + ++chkcoll.score);
+        {
+            chkcoll.scoreText.text = chkcoll.gameObject.name + " Score: " + ++chkcoll.score;
+            victoryText.text = chkcoll.score >= 5 ? chkcoll.gameObject.name + " Wins!" : "";
+        }
+
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -23,7 +33,7 @@ public class checkcollision : MonoBehaviour
         if (hit.gameObject.tag == "Ball" && Time.time - lastCollisionTime > collisionCooldown)
         {
             lastCollisionTime = Time.time;
-            Debug.Log(gameObject.name + " Points: " + --score);
+            scoreText.text = gameObject.name + " Points: " + --score;
             Destroy(hit.gameObject);
         }
         if (hit.gameObject.Equals(oppositeWalls[targetWall]))

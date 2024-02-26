@@ -1,3 +1,5 @@
 # unity-multiplayer-game-1
  
 The only two changes I made was to first add random bouncing balls that get spawned by the walls and roll across the scene. When a player hits one of these balls, they lose 1 point. The balls are destroyed on contact or after 10 bounces. The balls also have a random chance of getting a force that pushes them randomly. This adds chance, challenge, and skill to the game. I also added that when a player hits the opposing wall they rotate 180 degrees to avoid players just getting stuck on either side. Thsi constrains the players' movement still, but introduces strategy to bounce off the wall at the right time to catch up to your opponent.
+
+Unity assignment 6 update: added scoring UI to the game. I realized that the way i was scoring was a bit weird because the trigger collider is on the opponent, so the opponent is waht sees when you gain a point, which means it had to access the other player's collision script, i think it might have been more effective if I had chosen to put it under the players instead so they trigger themselves, but it works in the end so thats what matters right now.
