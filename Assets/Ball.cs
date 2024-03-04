@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private int bounceCount = 0;
+    private float timeAlive = 0;
+    private float timeToLive = 60;
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -17,15 +18,17 @@ public class Ball : MonoBehaviour
     {
         if (Random.Range(0, 10000) < 1)
             rb.AddForce(new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10)), ForceMode.Impulse);
+        timeAlive += Time.deltaTime;
+        if (timeAlive >= timeToLive)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        bounceCount++;
-        if (bounceCount >= 10)
-        {
-            Destroy(gameObject);
-        }
+        if(collision.rigidbody != null)
+            rb.AddForce(collision.rigidbody.angularVelocity * -1, ForceMode.Impulse);
 
     }
 }
