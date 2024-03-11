@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class checkcollision : MonoBehaviour
+public class CheckCollision : MonoBehaviour
 {
     [SerializeField] private GameObject[] oppositeWalls = new GameObject[2];
 

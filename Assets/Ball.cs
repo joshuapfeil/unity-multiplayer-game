@@ -9,15 +9,16 @@ public class Ball : MonoBehaviour
     Rigidbody rb;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Random.Range(0, 10000) < 1)
+        if (Random.Range(0, 100) < 1)
             rb.AddForce(new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10)), ForceMode.Impulse);
+        
         timeAlive += Time.deltaTime;
         if (timeAlive >= timeToLive)
         {
@@ -29,6 +30,22 @@ public class Ball : MonoBehaviour
     {
         if(collision.rigidbody != null)
             rb.AddForce(collision.rigidbody.angularVelocity * -1, ForceMode.Impulse);
+
+        if(rb.velocity.magnitude > 20)
+        {
+            if(collision.gameObject.name.Equals("WhiteWall"))
+            {
+                Managers.WhitePlayer.ChangeHealth(1);
+                Debug.Log("impact WHITE");
+                Destroy(gameObject);
+            }
+            else if(collision.gameObject.name.Equals("BlueWall"))
+            {
+                Managers.BluePlayer.ChangeHealth(1);
+                Debug.Log("impact BLUE");
+                Destroy(gameObject);
+            }
+        }
 
     }
 }

@@ -29,7 +29,23 @@ public class PlayerManager : MonoBehaviour, IGameManager
 
     public void ChangeHealth(int value)
     {
+        int items;
+
+        if (playerName == "White")
+        {
+            items = Managers.WhiteInventory.GetItemCount("item");
+        }
+        else
+        {
+            items = Managers.BlueInventory.GetItemCount("item");
+        }
+
         health += value;
+
+        if(value > 0){
+            health += items;
+        }
+        
         if (health > maxHealth)
         {
             health = maxHealth;
@@ -43,15 +59,26 @@ public class PlayerManager : MonoBehaviour, IGameManager
         
         if (health == 0)
         {
-            if (playerName == "White")
-            {
-                victoryText.text = "Blue Wins! Blue had" + Managers.BlueInventory.GetItemCount("item") + " items!";
-            }
-            else
-            {
-                victoryText.text = "White Wins! White had" + Managers.WhiteInventory.GetItemCount("item") + " items!";
-            }
-            
+            victory();
         }
+    }
+
+    private void victory()
+    {
+        Debug.Log("Victory!");
+        if (playerName == "White")
+        {
+            victoryText.text = "Blue Wins!\nBlue had " + Managers.BlueInventory.GetItemCount("item") + " items!";
+        }
+        else
+        {
+            victoryText.text = "White Wins!\nWhite had" + Managers.WhiteInventory.GetItemCount("item") + " items!";
+        }
+    }
+
+    private void Update()
+    {
+        if (health == 0)
+            victory();
     }
 }

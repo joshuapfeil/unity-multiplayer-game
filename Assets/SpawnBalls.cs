@@ -8,9 +8,9 @@ public class SpawnBalls : MonoBehaviour
     [SerializeField] private int direction = 1;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Random.Range(0, 1000) < 1)
+        if(Random.Range(0, 200) < 1)
             SpawnBall();
     }
 
